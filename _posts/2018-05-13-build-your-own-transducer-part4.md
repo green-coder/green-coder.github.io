@@ -3,7 +3,7 @@ layout: post
 title: Build Your Own Transducer and Impress Your Cat - Part 4
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-13
-tags: Clojure, Transducer, Beginners
+tags: [Clojure, Transducer, Beginners]
 categories: Clojure
 ---
 

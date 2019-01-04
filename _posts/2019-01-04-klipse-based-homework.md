@@ -3,7 +3,7 @@ layout: clojure-post
 title: Klipse based homework
 description: Live Clojure REPL for daughter.
 date: 2019-01-04
-tags: Clojure, Klipse
+tags: [Clojure, Klipse]
 categories: Clojure
 ---
 
