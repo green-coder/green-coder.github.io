@@ -30,6 +30,10 @@ plugins:
   - jekyll-feed
   - jekyll-relative-links
   - jekyll-redirect-from
+  - jekyll-gist
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
 
 # Relative links
 relative_links:
