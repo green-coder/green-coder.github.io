@@ -2,17 +2,18 @@
 layout: post
 title: Build Your Own Transducer and Impress Your Cat - Part 3
 description: Brief introduction to what transducers are and how to use them.
+date: 2018-05-12
 tags: Clojure, Transducer, Beginners
 categories: Clojure
 ---
 
 This post is a part of a serie:
 
-1. [Introduction to transducers](/clojure/build-your-own-transducer-part1/)
-2. [Anatomy of a transducer](/clojure/build-your-own-transducer-part2/)
+1. [Introduction to transducers](2018-05-08-build-your-own-transducer-part1.md)
+2. [Anatomy of a transducer](2018-05-10-build-your-own-transducer-part2.md)
 3. Stateful transducers (this post)
-4. [Early termination in transducers](/clojure/build-your-own-transducer-part4/)
-5. [Functions which are using transducers](/clojure/build-your-own-transducer-part5/)
+4. [Early termination in transducers](2018-05-13-build-your-own-transducer-part4.md)
+5. [Functions which are using transducers](2018-05-21-build-your-own-transducer-part5.md)
 6. [Transducer exercises and solutions](https://github.com/green-coder/transducer-exercises)
 
 ---
@@ -129,4 +130,4 @@ Here we use a map containing multiple values as the local state.
 
 ## What's next
 
-[In the next part of this blog serie](/clojure/build-your-own-transducer-part4/), I talk about how to support early termination in a data pipeline by using `reduced` and `reduced?`.
+[In the next part of this blog serie](2018-05-13-build-your-own-transducer-part4.md), I talk about how to support early termination in a data pipeline by using `reduced` and `reduced?`.

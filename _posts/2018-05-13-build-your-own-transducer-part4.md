@@ -2,17 +2,18 @@
 layout: post
 title: Build Your Own Transducer and Impress Your Cat - Part 4
 description: Brief introduction to what transducers are and how to use them.
+date: 2018-05-13
 tags: Clojure, Transducer, Beginners
 categories: Clojure
 ---
 
 This post is a part of a serie:
 
-1. [Introduction to transducers](/clojure/build-your-own-transducer-part1/)
-2. [Anatomy of a transducer](/clojure/build-your-own-transducer-part2/)
-3. [Stateful transducers](/clojure/build-your-own-transducer-part3/)
+1. [Introduction to transducers](2018-05-08-build-your-own-transducer-part1.md)
+2. [Anatomy of a transducer](2018-05-10-build-your-own-transducer-part2.md)
+3. [Stateful transducers](2018-05-12-build-your-own-transducer-part3.md)
 4. Early termination in transducers (this post)
-5. [Functions which are using transducers](/clojure/build-your-own-transducer-part5/)
+5. [Functions which are using transducers](2018-05-21-build-your-own-transducer-part5.md)
 6. [Transducer exercises and solutions](https://github.com/green-coder/transducer-exercises)
 
 ---
@@ -187,4 +188,4 @@ Now let's correct our transducer.
 
 You already know everything you need to implement your own transducers. I encourage you to try some ideas on your own. If you encounter blocking problems in your adventure, feel free to leave a comment and I will try to help you (when I have time).
 
-[In the next part](/clojure/build-your-own-transducer-part5/), I talk about functions like `into` which are **using** the transducers and how to write one.
+[In the next part](2018-05-21-build-your-own-transducer-part5.md), I talk about functions like `into` which are **using** the transducers and how to write one.

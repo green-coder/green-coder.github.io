@@ -2,17 +2,18 @@
 layout: post
 title: Build Your Own Transducer and Impress Your Cat - Part 2
 description: Brief introduction to what transducers are and how to use them.
+date: 2018-05-10
 tags: Clojure, Transducer, Beginners
 categories: Clojure
 ---
 
 This post is a part of a serie:
 
-1. [Introduction to transducers](/clojure/build-your-own-transducer-part1/)
+1. [Introduction to transducers](2018-05-08-build-your-own-transducer-part1.md)
 2. Anatomy of a transducer (this post)
-3. [Stateful transducers](/clojure/build-your-own-transducer-part3/)
-4. [Early termination in transducers](/clojure/build-your-own-transducer-part4/)
-5. [Functions which are using transducers](/clojure/build-your-own-transducer-part5/)
+3. [Stateful transducers](2018-05-12-build-your-own-transducer-part3.md)
+4. [Early termination in transducers](2018-05-13-build-your-own-transducer-part4.md)
+5. [Functions which are using transducers](2018-05-21-build-your-own-transducer-part5.md)
 6. [Transducer exercises and solutions](https://github.com/green-coder/transducer-exercises)
 
 ---
@@ -145,4 +146,4 @@ Suppose that we want to send a serie of values in one go to the output but we ca
 
 All the transducers shown above are **stateless**: Their behavior is fully described by their inputs and their initial immutable parameters.
 
-[In the next part of this blog post](/clojure/build-your-own-transducer-part3/), I cover the **stateful** transducers, those with a local mutable state.
+[In the next part of this blog post](2018-05-12-build-your-own-transducer-part3.md), I cover the **stateful** transducers, those with a local mutable state.

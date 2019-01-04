@@ -2,6 +2,7 @@
 layout: post
 title: Build Your Own Transducer and Impress Your Cat - Part 1
 description: Brief introduction to what transducers are and how to use them.
+date: 2018-05-08
 tags: Clojure, Transducer, Beginners
 categories: Clojure
 ---
@@ -9,10 +10,10 @@ categories: Clojure
 This post is a part of a serie:
 
 1. Introduction to transducers (this post)
-2. [Anatomy of a transducer](/clojure/build-your-own-transducer-part2/)
-3. [Stateful transducers](/clojure/build-your-own-transducer-part3/)
-4. [Early termination in transducers](/clojure/build-your-own-transducer-part4/)
-5. [Functions which are using transducers](/clojure/build-your-own-transducer-part5/)
+2. [Anatomy of a transducer](2018-05-10-build-your-own-transducer-part2.md)
+3. [Stateful transducers](2018-05-12-build-your-own-transducer-part3.md)
+4. [Early termination in transducers](2018-05-13-build-your-own-transducer-part4.md)
+5. [Functions which are using transducers](2018-05-21-build-your-own-transducer-part5.md)
 6. [Transducer exercises and solutions](https://github.com/green-coder/transducer-exercises)
 
 ---
@@ -115,4 +116,4 @@ Clojure has a few transducers which are very popular because they are handy.
 
 # What's next
 
-[In the next post](/clojure/build-your-own-transducer-part2/), I talk about the anatomy of a transducer and how to program your own.
+[In the next post](2018-05-10-build-your-own-transducer-part2.md), I talk about the anatomy of a transducer and how to program your own.
