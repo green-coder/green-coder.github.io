@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+![Profile Image](/img/profile-200.png)
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Vincent Cantin is a game industry veteran who moved to web development in the end of 2016.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Functional programming lover, Clojure(Script) enthusiast, his motto is:
 
-
-[jekyll-organization]: https://github.com/jekyll
+> Do the right things and do the things right.
