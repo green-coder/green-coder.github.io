@@ -83,7 +83,7 @@ That convention is: `(reduced last-value)`
 
 There is one more thing to check before calling it done.
 
-![Look both ways when crossing the railway.](/img/train-hide-other-train.jpg)
+![Look both ways when crossing the railway.](/img/xf-tuto/train-hide-other-train.jpg)
 
 Let's test our transducer a little more. Is it still going to work in those cases?
 
@@ -132,7 +132,7 @@ You didn't? Too bad because you should have: It triggers a bug and you get an ex
 ; => ClassCastException clojure.lang.Reduced cannot be cast to clojure.lang.ITransientCollection  clojure.core/persistent! (core.clj:3240)
 ```
 
-![Confused Baby](/img/confused-baby.jpg)
+![Confused Baby](/img/xf-tuto/confused-baby.jpg)
 
 Something happened when we returned a value which was wrapped at the same time by both transducers: `(reduced (reduced last-value))`
 

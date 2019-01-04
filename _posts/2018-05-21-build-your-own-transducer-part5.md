@@ -100,7 +100,7 @@ Let's play with this idea a bit and let's implement a function that provides a s
 
 ### {0 1 2}-Arity
 
-![You said Arrietty?](/img/ariety01.jpg)
+![You said Arrietty?](/img/xf-tuto/ariety.jpg)
 
 If you read the parts 1 to 4 of this blog serie, you will know that transducers are expected to be called with different arities.
 
@@ -191,7 +191,7 @@ What if we want to make our function more general and accept a "1-and-2-arity" r
 
 ### Easy made simple (by my cat)
 
-![This is not my cat](/img/dilbert01.jpg)
+![This is not my cat](/img/xf-tuto/dilbert.jpg)
 
 My cat just told me that I am an idiot as there is a shorter and more efficient way to implement the function above.
 

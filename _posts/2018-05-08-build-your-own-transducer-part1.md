@@ -27,7 +27,7 @@ In simple words:
 > A transducer is the equivalent of an operation on a stream of data elements.
 
 That man is a kind of transducer, it takes data elements from its input and may send some on its output:
-![A kind of transducer](/img/human_resource_machine01.png "from the game 'Human Resource Machine'")
+![A kind of transducer](/img/xf-tuto/human_resource_machine01.png "from the game 'Human Resource Machine'")
 
 You can see it as a function which is called exactly once for each element of the input stream, and which can spit any number of elements to its output stream.
 

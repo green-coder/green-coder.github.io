@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-![Profile Image](/img/profile-200.png)
+![Profile Image](/img/about/profile-200.png)
 
 Vincent Cantin is a game industry veteran who moved to web development in the end of 2016.
 
