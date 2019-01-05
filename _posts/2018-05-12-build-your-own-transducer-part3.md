@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clojure-post
 title: Build Your Own Transducer and Impress Your Cat - Part 3
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-12
@@ -34,7 +34,7 @@ The information stored could simply be the input values, or it could be a derive
 
 Suppose that we have a stream of chars representing zero terminated strings and we want to have a stream of strings.
 
-```clojure
+```eval-clojure
 (defn string-builder-transducer [separator]
   ; The local state *should not* be defined here.
   (fn [rf]
@@ -55,7 +55,6 @@ Suppose that we have a stream of chars representing zero terminated strings and 
 (into []
       (string-builder-transducer 0)
       (list \H \e \l \l \o 0 \C \l \o \j \u \r \e 0 \w \o \r \l \d \!))
-; => ["Hello" "Clojure" "world!"]
 ```
 
 Three notes:
@@ -68,7 +67,7 @@ Three notes:
 
 Suppose that we have a stream of numbers separated by a special keyword `:|` and we want to compute the sum of each chunk of numbers.
 
-```clojure
+```eval-clojure
 (defn chunk-sum-transducer [separator]
   (fn [rf]
     (let [state (volatile! 0)]
@@ -87,7 +86,6 @@ Suppose that we have a stream of numbers separated by a special keyword `:|` and
 (into []
       (chunk-sum-transducer :|)
       (list 1 2 3 4 :| 42 :| :| 3 5))
-; => [10 42 0 8]
 ```
 
 Note that our transducer is efficient in terms of memory as it only keep a sum of numbers in its local state instead of all the elements of the current chunk.
@@ -98,7 +96,7 @@ Another example a little more complex, this transducer groups messages together 
 
 Here we use a map containing multiple values as the local state.
 
-```clojure
+```eval-clojure
 (defn packet-transducer [max-size]
   (fn [rf]
     (let [state (volatile! {:packet []
@@ -125,7 +123,6 @@ Here we use a map containing multiple values as the local state.
 (into []
       (packet-transducer 5)
       (list [1 1] [2 2] [3 3 3] [4 4] [5] [6 6 6 6 6]))
-; => [[[1 1] [2 2]] [[3 3 3] [4 4]] [[5]] [[6 6 6 6 6]]]
 ```
 
 ## What's next

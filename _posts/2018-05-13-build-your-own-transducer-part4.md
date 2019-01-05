@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clojure-post
 title: Build Your Own Transducer and Impress Your Cat - Part 4
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-13
@@ -22,7 +22,7 @@ This post is a part of a serie:
 
 Suppose that you want to write a transducer that uses some of the elements in the input stream and then ignore anything after it. It would be a waste to have to iterate on the remaining values of the stream if we do not use them.
 
-```clojure
+```eval-clojure
 (defn tired-map-transducer [func energy tired-answer]
   (fn [rf]
     (let [state (volatile! energy)]
@@ -40,7 +40,6 @@ Suppose that you want to write a transducer that uses some of the elements in th
 (into []
       (tired-map-transducer inc 5 :whatever)
       (list 1 2 3 4 5 6 7 8 9 10))
-; => [2 3 4 5 6 :whatever :whatever :whatever :whatever :whatever]
 ```
 
 We certainly want to find a way to let the function calling the transducers to stop calling them.
@@ -51,7 +50,7 @@ The Clojure core team came up with something that is very unlikely to appear in 
 
 That convention is: `(reduced last-value)`
 
-```clojure
+```eval-clojure
 (defn responsible-map-transducer [func energy]
   (fn [rf]
     (let [state (volatile! energy)]
@@ -66,17 +65,16 @@ That convention is: `(reduced last-value)`
 (into []
       (responsible-map-transducer inc 5)
       (list 1 2 3 4 5 6 7 8 9 10))
-; => [2 3 4 5 6]
 ```
 
 `reduced` is simply returning a wrapped value. A value can be tested by the calling function as being wrapped or not by using the predicate `reduced?`.
 
-```clojure
+```eval-clojure
 (reduced? 7)
-; => false
+```
 
+```eval-clojure
 (reduced? (reduced 7))
-; => true
 ```
 
 ## Are we done, then?
@@ -118,7 +116,7 @@ It happens to be the case here because we simply returned what the `rf` function
 
 Did you think about testing that?
 
-```clojure
+```eval-clojure
 (into []
       (comp
         (responsible-map-transducer inc 3)  ; Step 1
@@ -128,19 +126,14 @@ Did you think about testing that?
 
 You didn't? Too bad because you should have: It triggers a bug and you get an extremely unclear error message now.
 
-```clojure
-; => ClassCastException clojure.lang.Reduced cannot be cast to clojure.lang.ITransientCollection  clojure.core/persistent! (core.clj:3240)
-```
-
 ![Confused Baby](/img/xf-tuto/confused-baby.jpg)
 
 Something happened when we returned a value which was wrapped at the same time by both transducers: `(reduced (reduced last-value))`
 
 The function which is calling the transducers (i.e. `into`) is supporting early termination by expecting either a value or a `reduced` value, in which case it is getting the unwrapped value via `(unreduced reduced-value)`. But instead of getting the value, it still gets a reduced value.
 
-```clojure
+```eval-clojure
 (reduced? (unreduced (reduced (reduced 7))))
-; => true
 ```
 
 How to fix it? Either we ask the Clojure core team to change all the functions which are using transducers to support multi-wrapped values, or either we avoid wrapping the values more than once.
@@ -149,14 +142,14 @@ How to fix it? Either we ask the Clojure core team to change all the functions w
 
 We can use the function [`ensure-reduced`](http://clojuredocs.org/search?q=ensure-reduced) from the standard library. Its implementation is very simple:
 
-```clojure
+```eval-clojure
 (defn ensure-reduced [x]
   (if (reduced? x) x (reduced x)))
 ```
 
 Now let's correct our transducer.
 
-```clojure
+```eval-clojure
 (defn correct-map-transducer [func energy]
   (fn [rf]
     (let [state (volatile! energy)]
@@ -173,7 +166,6 @@ Now let's correct our transducer.
         (correct-map-transducer inc 3)  ; Step 1
         (correct-map-transducer inc 3)) ; Step 2
       (list 1 2 3 4 5 6 7 8 9 10))
-; => [3 4 5]
 
 ; Idiomatic way:
 ; (into []

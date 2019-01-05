@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clojure-post
 title: Build Your Own Transducer and Impress Your Cat - Part 2
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-10
@@ -26,7 +26,7 @@ This article describes briefly the structure of a transducer and how to implemen
 
 Let's suppose that we want to manually create a transducer that increments numbers. We could normally just use `(map inc)`, but for the training we will do it from scratch.
 
-```clojure
+```eval-clojure
 (def inc-transducer
   (fn [rf]
     (fn ([] (rf))                                   ; 0-arity aka 'the useless'
@@ -34,7 +34,6 @@ Let's suppose that we want to manually create a transducer that increments numbe
         ([result input] (rf result (inc input)))))) ; 2-arity aka 'the doer'
 
 (into [] inc-transducer (list 4 5 6))
-; => [5 6 7]
 
 ; idiomatic way:
 ; (into [] (map inc) (list 4 5 6))
@@ -54,7 +53,7 @@ The `2-arity` is where the input data gets processed and passed to the next func
 
 Now let's suppose that instead of incrementing the numbers we want to add them a given value, then we need a transducer with a parameter.
 
-```clojure
+```eval-clojure
 (defn add-transducer [n]
   (fn [rf]
     (fn ([] (rf))
@@ -62,7 +61,6 @@ Now let's suppose that instead of incrementing the numbers we want to add them a
         ([result input] (rf result (+ input n))))))
 
 (into [] (add-transducer 3) (list 4 5 6))
-; => [7 8 9]
 
 ; idiomatic way:
 ; (into [] (map #(+ 3 %)) (list 4 5 6))
@@ -72,7 +70,7 @@ Now let's suppose that instead of incrementing the numbers we want to add them a
 
 We want a transducer that makes the rabbits disappear, to illustrate the case where the transducer may not provide a new output value.
 
-```clojure
+```eval-clojure
 (defn magician-transducer [animal]
   (fn [rf]
     (fn ([] (rf))
@@ -83,7 +81,6 @@ We want a transducer that makes the rabbits disappear, to illustrate the case wh
               (rf result input))))))
 
 (into [] (magician-transducer :rabbit) (list :dog :rabbit :lynel))
-; => [:dog :lynel]
 
 ; idiomatic ways:
 ; (into [] (remove #(= :rabbit %)) (list :dog :rabbit :lynel))
@@ -96,7 +93,7 @@ No rabbit, no problem.
 
 And what if we want more cats now? (more data output than input)
 
-```clojure
+```eval-clojure
 (defn glitch-transducer [animal]
   (fn [rf]
     (fn ([] (rf))
@@ -109,7 +106,6 @@ And what if we want more cats now? (more data output than input)
              (rf result input))))))
 
 (into [] (glitch-transducer :cat) (list :dog :cat :lynel))
-; => [:dog :cat :cat :lynel]
 
 ; idiomatic way:
 ; (into []
@@ -123,7 +119,7 @@ More cats. Neo would be happy.
 
 Suppose that we want to send a serie of values in one go to the output but we can't do it as in the previous example because the number of repeats is not fixed or is too big and we are lazy and sane. We can use `reduce` to output the values one by one (now you can see why `rf` is called like that, it can be seen as a reducing function).
 
-```clojure
+```eval-clojure
 (def rle-decoder-transducer
   (fn [rf]
     (fn ([] (rf))
@@ -134,7 +130,6 @@ Suppose that we want to send a serie of values in one go to the output but we ca
 (into []
       rle-decoder-transducer
       (list [0 :a] [1 :b] [2 :c] [3 :d]))
-; => [:b :c :c :d :d :d]
 
 ; idiomatic way:
 ; (into []

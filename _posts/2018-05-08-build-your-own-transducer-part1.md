@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clojure-post
 title: Build Your Own Transducer and Impress Your Cat - Part 1
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-08
@@ -51,18 +51,16 @@ It accepts some data elements as input and gives the exact same data elements to
 
 Let's use that transducer properly. Here the `into` function gives it some data elements from a list and collects its output elements into a vector.
 
-```clojure
-(into [\b \a] (map identity) (list \n \a \n \a))
-; => [\b \a \n \a \n \a]
+```eval-clojure
+(into ["b" "a"] (map identity) (list "n" "a" "n" "a"))
 ```
 
-Another example with a transducer that actually does something with its input, it transforms each char into its preceding char in the alphabet.
+Another example with a transducer that actually does something with its input, it transforms each character into its preceding character in the alphabet.
 
-```clojure
-(into [\b \a]
-      (map #(char (dec (int %))))
-      (list \u \n \b \o))
-; => [\b \a \t \m \a \n]
+```eval-clojure
+(into ["b" "a"]
+      (map #(char (dec (.charCodeAt % 0))))
+      (list "u" "n" "b" "o"))
 ```
 
 Notice that you can use any function `f` which takes 1 value as parameter and returns 1 value by using the form `(map f)`. Simple and easy.
@@ -71,22 +69,20 @@ Now let's see some built-in transducers which do not have the same number of inp
 
 This one outputs 1 or none output element for each input element:
 
-```clojure
+```eval-clojure
 (into []
-      (filter #(<= (int \a) (int %) (int \f)))
-      (list \c \r \a \f \e \b \h \a \b \l \e))
-; => [\c \a \f \e \b \a \b \e]
+      (filter #(<= (.charCodeAt "a" 0) (.charCodeAt % 0) (.charCodeAt "f" 0)))
+      (list "c" "r" "a" "f" "e" "b" "h" "a" "b" "l" "e"))
 ```
 
 This one gives 1 or more output elements for each input element.
 
-```clojure
+```eval-clojure
 (into []
       (mapcat #(if (<= 0 % 9)
-                   (list % %)
-                   (list %)))
+                 (list % %)
+                 (list %)))
       (list 10 5 16 7 13))
-; => [10 5 5 16 7 7 13]
 ```
 
 _Notes: The function provided to `mapcat` returns a collection of arbitrary size and `mapcat` returns a transducer which outputs an arbitrary number of elements for each input element._
@@ -95,16 +91,15 @@ _Notes: The function provided to `mapcat` returns a collection of arbitrary size
 
 Multiple transducers can be piped together to give birth to more complex data processing pipelines. This is done via the `comp` function and the result of the composition is a transducer. The data elements flow one after another through the pipeline, no buffer is used for storing intermediary results between each of its steps - that's a streaming process.
 
-```clojure
+```eval-clojure
 (into []
       (comp
         (map inc)                 ; first step
         (filter odd?)             ; second step
         (mapcat #(if (<= 0 % 9)   ; third step
-                     (list % %)
-                     (list %))))
+                   (list % %)
+                   (list %))))
       (list 8 9 10 11 12))
-; => [9 9 11 13]
 ```
 
 # The built-in transducers

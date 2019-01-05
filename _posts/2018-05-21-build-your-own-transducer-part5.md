@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: clojure-post
 title: Build Your Own Transducer and Impress Your Cat - Part 5
 description: Brief introduction to what transducers are and how to use them.
 date: 2018-05-21
@@ -24,9 +24,8 @@ This article describes some functions which are using transducers, and how to wr
 
 If you followed the previous 4 parts of this blog serie, you may have noticed that I only mentioned one function which is using transducers so far: the `into` function.
 
-``` clojure
+``` eval-clojure
 (into [] (map inc) (list 3 4 5))
-; => [4 5 6]
 ```
 
 There are more of that kind. Their role is to provide the context of a stream transformation. This includes to **provide a data stream** to the transducer, and to **deal with the transformed stream** that they get from the transducer.
@@ -73,34 +72,30 @@ If you don't know what that mean, you can also see them as a functions that tran
 
 Let's play with this idea a bit and let's implement a function that provides a stream of data from a collection to a transducer and outputs the transformed stream to the standard output, element by element.
 
-```clojure
+```eval-clojure
 ; Notes:
-; - Don't do this at home, this is still a toy function.
-; - The transducer is often called 'xf' and the reducer function 'rf'.
+; - Don't use this at home, this is still a toy function.
+; - The transducer is commonly called 'xf' and the reducing function 'rf'.
 (defn print-duce [transducer coll]
-  (let [reduction-fn #(print (str %2 \space))
-        process (transducer reduction-fn)]
+  (let [reducing-fn #(print (str %2 " "))
+        process (transducer reducing-fn)]
     (loop [c coll]
       (when (seq c)
-        (do
-          (process nil (first c))
-          (recur (rest c)))))))
+        (process nil (first c))
+        (recur (rest c))))))
 
 (print-duce (map inc) (list 3 4 5))
-; Output:
-; 4 5 6
+```
 
-; But this does not work:
-(print-duce (partition-all 2) (list 3 4 5))
-; Output:
-; [3 4]
-;
+```eval-clojure
+; However the following does not work, there is a bug in print-duce:
 ; the [5] is missing!
+(print-duce (partition-all 2) (list 3 4 5))
 ```
 
 ### {0 1 2}-Arity
 
-![You said Arrietty?](/img/xf-tuto/ariety.jpg)
+![You said Arrietty?](/img/xf-tuto/arrietty.jpg)
 
 If you read the parts 1 to 4 of this blog serie, you will know that transducers are expected to be called with different arities.
 
@@ -112,12 +107,12 @@ If you read the parts 1 to 4 of this blog serie, you will know that transducers 
 
 Now let's improve our `print-ducer` a bit.
 
-```clojure
+```eval-clojure
 ; Note: Still a toy function.
 (defn print-duce [xf coll]
   (let [rf (fn ([])
-               ([result] (print (str \newline "--EOS")))
-               ([result input] (print (str input \space))))
+               ([result] (print "\n--EOS"))
+               ([result input] (print (str input " "))))
         process (xf rf)]
     (loop [c coll]
       (if (seq c)
@@ -127,26 +122,22 @@ Now let's improve our `print-ducer` a bit.
         (process nil)))))         ; 1-arity 'flush'
 
 (print-duce (map inc) (list 3 4 5))
-; Output:
-; 4 5 6
-; --EOS
+```
 
-; Now this works:
+```eval-clojure
+; Now this works, [5] is not missing:
 (print-duce (partition-all 2) (list 3 4 5))
-; Output:
-; [3 4] [5]
-; --EOS
 ```
 
 ### Enough is enough (early termination)
 
 Your transducer has its say on when to stop the stream. It will return a `reduced` value when it thinks that there should not be any other element. You need to pay attention to it and not ask too much.
 
-```clojure
+```eval-clojure
 (defn print-duce [xf coll]
   (let [rf (fn ([])
-               ([result] (print (str \newline "--EOS")))
-               ([result input] (print (str input \space))))
+               ([result] (print "\n--EOS"))
+               ([result input] (print (str input " "))))
         process (xf rf)]
     (loop [c coll]
       (if (seq c)
@@ -170,7 +161,7 @@ Source code:
 
 What if we want to make our function more general and accept a "1-and-2-arity" reducing function as a parameter?
 
-```clojure
+```eval-clojure
 (defn multi-duce [xf rf init coll]
   (let [process (xf rf)]
     (loop [acc init
@@ -183,10 +174,10 @@ What if we want to make our function more general and accept a "1-and-2-arity" r
         (process acc)))))
 
 (multi-duce (map inc) conj [] (list 3 4 5))
-; => [4 5 6]
+```
 
+```eval-clojure
 (multi-duce (partition-all 2) conj [] (list 3 4 5))
-; => [[3 4] [5]]
 ```
 
 ### Easy made simple (by my cat)
@@ -197,17 +188,17 @@ My cat just told me that I am an idiot as there is a shorter and more efficient 
 
 I gave the keyboard to him and here is what he shown me:
 
-```clojure
+```eval-clojure
 (defn cat-duce [xf rf init coll]
   (let [process (xf rf)
         result (reduce process init coll)]
       (process result)))
 
 (cat-duce (map inc) conj [] (list 3 4 5))
-; => [4 5 6]
+```
 
+```eval-clojure
 (cat-duce (partition-all 2) conj [] (list 3 4 5))
-; => [[3 4] [5]]
 ```
 
 Indeed, it seems to work. Thank you cat!
