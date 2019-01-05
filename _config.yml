@@ -39,6 +39,18 @@ relative_links:
   enabled:     true
   collections: true
 
+# Disqus
+disqus:
+  shortname: vincent-404-taipei-1
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      comments: true
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
