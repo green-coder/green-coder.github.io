@@ -174,6 +174,8 @@ Now let's correct our transducer.
 ;         (map inc)  ; Step 2
 ;         (map inc)) ; Step 3
 ;       (range 1 11))
+
+;
 ```
 
 ## What's next

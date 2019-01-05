@@ -37,6 +37,8 @@ Let's suppose that we want to manually create a transducer that increments numbe
 
 ; idiomatic way:
 ; (into [] (map inc) (list 4 5 6))
+
+;
 ```
 
 The `rf` function is processing the output value of our transducer. It does ... 'something' to return a merged (or not) version of the `result` value with the processed data's value `(inc input)`, and our transducer needs to return that new result.
@@ -64,6 +66,8 @@ Now let's suppose that instead of incrementing the numbers we want to add them a
 
 ; idiomatic way:
 ; (into [] (map #(+ 3 %)) (list 4 5 6))
+
+;
 ```
 
 ## No Rabbit transducer (One-Some)
@@ -85,6 +89,8 @@ We want a transducer that makes the rabbits disappear, to illustrate the case wh
 ; idiomatic ways:
 ; (into [] (remove #(= :rabbit %)) (list :dog :rabbit :lynel))
 ; (into [] (filter #(not= :rabbit %)) (list :dog :rabbit :lynel))
+
+;
 ```
 
 No rabbit, no problem.
@@ -111,6 +117,8 @@ And what if we want more cats now? (more data output than input)
 ; (into []
 ;       (mapcat #(if (= :cat %) (list % %) (list %)))
 ;       (list :dog :cat :lynel))
+
+;
 ```
 
 More cats. Neo would be happy.
@@ -135,6 +143,8 @@ Suppose that we want to send a serie of values in one go to the output but we ca
 ; (into []
 ;       (mapcat (fn [[count data]] (repeat count data)))
 ;       (list [0 :a] [1 :b] [2 :c] [3 :d]))
+
+;
 ```
 
 ## What's next
