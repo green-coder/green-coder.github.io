@@ -43,6 +43,10 @@ relative_links:
 disqus:
   shortname: vincent-404-taipei-1
 
+# Google Analytics
+google_analytics: UA-131749223-1
+
+# Defaults
 defaults:
   -
     scope:
