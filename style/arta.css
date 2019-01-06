@@ -1,13 +1,14 @@
 /*
 Date: 17.V.2011
 Author: pumbur <pumbur@pumbur.net>
+Modified by Vincent Cantin to match the unicorn style for CodeMirror.
 */
 
 .hljs {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #222;
+  background: #2a2a2a;
 }
 
 .hljs,
@@ -22,7 +23,7 @@ Author: pumbur <pumbur@pumbur.net>
 .hljs-comment,
 .hljs-quote,
 .hljs-meta {
-  color: #444;
+  color: #A5A5A5;
 }
 
 .hljs-string,
@@ -47,12 +48,15 @@ Author: pumbur <pumbur@pumbur.net>
   color: #32aaee;
 }
 
-.hljs-keyword,
+.hljs-keyword {
+  color: #87DE77;
+}
+
 .hljs-selector-tag,
 .hljs-name,
 .hljs-selector-id,
 .hljs-selector-class {
-  color: #6644aa;
+  color: #a87ddb;
 }
 
 .hljs-title,
