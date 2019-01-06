@@ -27,7 +27,12 @@ youtube_displayname: Clojure Videos
 
 # Build settings
 permalink: /:categories/:title/
+
 markdown: kramdown
+kramdown:
+   syntax_highlighter_opts:
+      disable: true
+
 plugins:
   - jekyll-feed
   - jekyll-relative-links
